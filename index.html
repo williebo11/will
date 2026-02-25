@@ -8,95 +8,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
-    }
-
-    body {
-        background: #000;
-        color: white;
-        overflow-x: hidden;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif; }
+    body { background:#000; color:white; overflow-x:hidden; }
 
     /* ===== HERO SECTION ===== */
-    .hero {
-        height: 300vh;
-        position: relative;
-    }
+    .hero { height: 500vh; position:relative; }
+    .sticky { position: sticky; top:0; height:100vh; display:flex; justify-content:center; align-items:center; overflow:hidden; }
+    .will-text { font-size:12vw; font-weight:900; letter-spacing:-0.05em; position:relative; z-index:2; transition: transform 0.1s linear; text-transform:uppercase; text-align:center; }
+    .background-reveal { position:absolute; inset:0; background: linear-gradient(135deg,#0f0f0f,#1a1a1a); z-index:1; clip-path: circle(0% at 50% 50%); transition: clip-path 0.1s linear; }
 
-    .sticky {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
+    /* ===== CONTENT SECTIONS ===== */
+    .section { min-height:100vh; padding:100px 10vw; background:#111; display:flex; flex-direction:column; justify-content:center; }
+    .big-title { font-size:6vw; font-weight:800; margin-bottom:40px; }
+    .about-text { font-size:1.5rem; max-width:900px; line-height:1.8; opacity:0.9; }
 
-    .will-text {
-        font-size: 12vw;
-        font-weight: 900;
-        letter-spacing: -0.05em;
-        position: relative;
-        z-index: 2;
-        transition: transform 0.1s linear;
-        text-transform: uppercase;
-    }
-
-    .background-reveal {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-        z-index: 1;
-        clip-path: circle(0% at 50% 50%);
-        transition: clip-path 0.1s linear;
-    }
-
-    /* ===== SECTION AFTER REVEAL ===== */
-    .content {
-        min-height: 100vh;
-        padding: 150px 10vw;
-        background: #111;
-    }
-
-    .big-title {
-        font-size: 6vw;
-        font-weight: 800;
-        margin-bottom: 40px;
-    }
-
-    .about-text {
-        font-size: 1.5rem;
-        max-width: 800px;
-        line-height: 1.7;
-        opacity: 0.8;
-    }
-
-    /* ===== FLOATING PARTICLES ===== */
-    canvas {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-    }
+    /* ===== PARTICLES ===== */
+    canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
 
     /* ===== SCROLL INDICATOR ===== */
-    .scroll-indicator {
-        position: absolute;
-        bottom: 40px;
-        font-size: 0.8rem;
-        opacity: 0.5;
-        animation: bounce 2s infinite;
-    }
+    .scroll-indicator { position:absolute; bottom:40px; font-size:0.8rem; opacity:0.5; animation:bounce 2s infinite; }
+    @keyframes bounce { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(10px); } }
 
-    @keyframes bounce {
-        0%,100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
-    }
+    /* ===== FUNKY TEXT HIGHLIGHTS ===== */
+    .highlight { color:#0ff; font-weight:900; }
 </style>
 </head>
 
@@ -108,19 +42,62 @@
     <div class="sticky">
         <div class="background-reveal"></div>
         <h1 class="will-text">Will</h1>
-        <div class="scroll-indicator">Scroll</div>
+        <div class="scroll-indicator">Scroll →</div>
     </div>
 </section>
 
-<section class="content">
-    <h2 class="big-title">This is Will Page</h2>
+<!-- ==== EPIC SCROLL SECTIONS ==== -->
+<section class="section">
+    <h2 class="big-title">Welcome to the Will Zone 🌀</h2>
     <p class="about-text">
-        I don’t create things.  
-        I get AI to create things.
-        <br><br>
-        Developer. Creator. Genius.
-        <br><br>
-        Welcome to my universe.
+        Some call it arrogance. <span class="highlight">I call it Will. 😎</span>  
+        If brilliance were a sport, I’d have a gold medal collection bigger than your Netflix history. 🏆  
+        Watch closely… this is how legends scroll.
+    </p>
+</section>
+
+<section class="section">
+    <h2 class="big-title">Will Page™️</h2>
+    <p class="about-text">
+        Genius is subtle, like a ninja… invisible yet devastating. 🥷✨  
+        I don’t just solve problems, I give them an existential crisis.  
+        Beware: staring too long may cause enlightenment overload. ⚡
+    </p>
+</section>
+
+<section class="section">
+    <h2 class="big-title">The Will Effect 💥</h2>
+    <p class="about-text">
+        Every line of code I write is a poem… in binary. 010101 😏  
+        Some say “humble” is a virtue, but I prefer “Willful.”  
+        Pro tip: if you’re not scrolling in awe, are you even scrolling? 🧐
+    </p>
+</section>
+
+<section class="section">
+    <h2 class="big-title">Metaphorical Brilliance 🪞</h2>
+    <p class="about-text">
+        Imagine a black hole… now imagine it powered by charm, skill, and impeccable taste.  
+        That’s me.  
+        Warning: prolonged exposure may cause sudden confidence spikes. 🚀💫
+    </p>
+</section>
+
+<section class="section">
+    <h2 class="big-title">Will’s Universe 🌌</h2>
+    <p class="about-text">
+        Portfolio? Sure. But also a galaxy of wit, talent, and slightly sarcastic superiority.  
+        I don’t just shine, I illuminate entire timelines. 💡  
+        Scroll… and prepare to be mildly impressed. 😉
+    </p>
+</section>
+
+<section class="section">
+    <h2 class="big-title">End of the Scroll 🏁</h2>
+    <p class="about-text">
+        Congratulations! You survived the Will journey. 🏅  
+        If you feel smarter, cooler, or more enlightened… that’s just residual Will energy.  
+        Tip: come back often. It only gets more legendary. ✨🔥
     </p>
 </section>
 
@@ -135,18 +112,16 @@ window.addEventListener('scroll', () => {
     const maxScroll = hero.offsetHeight - window.innerHeight;
     const progress = scroll / maxScroll;
 
-    const scale = 1 + progress * 3;
+    const scale = 1 + progress * 4;
     willText.style.transform = `scale(${scale})`;
 
-    const clipSize = progress * 150;
+    const clipSize = progress * 200;
     reveal.style.clipPath = `circle(${clipSize}% at 50% 50%)`;
 });
-
 
 /* ===== PARTICLE BACKGROUND ===== */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
-
 let particlesArray = [];
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -164,35 +139,12 @@ class Particle {
         this.speedX = (Math.random() - 0.5) * 0.3;
         this.speedY = (Math.random() - 0.5) * 0.3;
     }
-
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-    }
-
-    draw() {
-        ctx.fillStyle = "rgba(255,255,255,0.2)";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
+    update() { this.x += this.speedX; this.y += this.speedY; }
+    draw() { ctx.fillStyle = "rgba(255,255,255,0.2)"; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
 }
 
-function initParticles() {
-    particlesArray = [];
-    for (let i = 0; i < 120; i++) {
-        particlesArray.push(new Particle());
-    }
-}
-
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-    });
-    requestAnimationFrame(animateParticles);
-}
+function initParticles() { for (let i=0;i<180;i++){ particlesArray.push(new Particle()); } }
+function animateParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animateParticles); }
 
 initParticles();
 animateParticles();
@@ -200,4 +152,3 @@ animateParticles();
 
 </body>
 </html>
-
