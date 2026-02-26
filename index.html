@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will - Infinite</title>
+<title>Will - Infinite Scroll</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
-body { background:#000; color:white; overflow-x:hidden; height:100vh; }
-.hero { height: 100vh; position:relative; overflow:hidden; }
-.sticky { position: sticky; top:0; height:100vh; display:flex; justify-content:center; align-items:center; }
+body { background:#000; color:white; overflow-x:hidden; }
+
+.hero { position:relative; height:5000px; } /* long scroll */
+.sticky { position: sticky; top:0; height:100vh; display:flex; justify-content:center; align-items:center; overflow:hidden; }
 .will-text { font-size:12vw; font-weight:900; letter-spacing:-0.05em; position:relative; z-index:2; text-transform:uppercase; text-align:center; transition: transform 0.05s linear; }
 .emoji { position:absolute; font-size:3rem; opacity:0; pointer-events:none; user-select:none; }
 canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
@@ -25,7 +26,7 @@ canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
 <section class="hero">
     <div class="sticky">
         <h1 class="will-text">Will</h1>
-        <div class="scroll-indicator">Scroll →</div>
+        <div class="scroll-indicator">Scroll ↓</div>
     </div>
 </section>
 
@@ -34,17 +35,18 @@ const willText = document.querySelector('.will-text');
 const emojis = ["💥","🚀","🌌","😎","🔥","✨","🥷","🌠","⚡","💫"];
 let lastScroll = 0;
 
-/* ===== INFINITE SCROLL MAPPING ===== */
+/* ===== INFINITE LOOP SCROLL ===== */
 window.addEventListener('scroll', () => {
     const scroll = window.scrollY;
-    const wave = (scroll/200) % (2*Math.PI); // loop every ~1250px
+    const loop = scroll % 1200; // repeat every 1200px
+    const progress = loop / 1200;
 
-    // sine wave for zoom in/out
-    const scale = 1 + Math.sin(wave*2) * 4; // oscillates between 1 and 5
-    const rotate = wave * 720; // spins endlessly
+    // Zoom in/out and spin
+    const scale = 1 + Math.sin(progress * Math.PI*2) * 4; // 1→5→1
+    const rotate = progress * 1080; // spins full 3 times
     willText.style.transform = `scale(${scale}) rotate(${rotate}deg)`;
 
-    // random emojis every few pixels
+    // spawn emojis randomly
     if(scroll - lastScroll > 10){
         if(Math.random() < 0.2) spawnEmoji();
         lastScroll = scroll;
