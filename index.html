@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will - Infinite Scroll</title>
+<title>Will - Clickable Emoji</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
 body { background:#000; color:white; overflow-x:hidden; }
 
-.hero { position:relative; height:5000px; } /* long scroll */
-.sticky { position: sticky; top:0; height:100vh; display:flex; justify-content:center; align-items:center; overflow:hidden; }
-.will-text { font-size:12vw; font-weight:900; letter-spacing:-0.05em; position:relative; z-index:2; text-transform:uppercase; text-align:center; transition: transform 0.05s linear; }
+.hero { position:relative; height:5000px; } /* long scroll for scale effect */
+.sticky { position: sticky; top:0; height:100vh; display:flex; justify-content:center; align-items:center; overflow:hidden; cursor:pointer; }
+.will-text { font-size:12vw; font-weight:900; letter-spacing:-0.05em; position:relative; z-index:2; text-transform:uppercase; text-align:center; transition: transform 0.1s ease; }
 .emoji { position:absolute; font-size:3rem; opacity:0; pointer-events:none; user-select:none; }
 canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
 .scroll-indicator { position:absolute; bottom:40px; font-size:0.8rem; opacity:0.5; animation:bounce 2s infinite; }
@@ -24,7 +24,7 @@ canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
 <canvas id="particles"></canvas>
 
 <section class="hero">
-    <div class="sticky">
+    <div class="sticky" id="will-container">
         <h1 class="will-text">Will</h1>
         <div class="scroll-indicator">Scroll ↓</div>
     </div>
@@ -32,25 +32,19 @@ canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
 
 <script>
 const willText = document.querySelector('.will-text');
+const willContainer = document.getElementById('will-container');
 const emojis = ["💥","🚀","🌌","😎","🔥","✨","🥷","🌠","⚡","💫"];
 let lastScroll = 0;
 
-/* ===== INFINITE LOOP SCROLL ===== */
+/* ===== GENTLE ZOOM WITH SCROLL ===== */
 window.addEventListener('scroll', () => {
     const scroll = window.scrollY;
-    const loop = scroll % 1200; // repeat every 1200px
-    const progress = loop / 1200;
+    const maxScroll = 5000; // matches hero height
+    const progress = scroll / maxScroll;
 
-    // Zoom in/out and spin
-    const scale = 1 + Math.sin(progress * Math.PI*2) * 4; // 1→5→1
-    const rotate = progress * 1080; // spins full 3 times
-    willText.style.transform = `scale(${scale}) rotate(${rotate}deg)`;
-
-    // spawn emojis randomly
-    if(scroll - lastScroll > 10){
-        if(Math.random() < 0.2) spawnEmoji();
-        lastScroll = scroll;
-    }
+    // gentle zoom in/out (1 → 1.5 → 1)
+    const scale = 1 + Math.sin(progress * Math.PI*2) * 0.5; 
+    willText.style.transform = `scale(${scale})`;
 });
 
 /* ===== PARTICLES ===== */
@@ -77,14 +71,18 @@ function initParticles(){ for(let i=0;i<250;i++){ particlesArray.push(new Partic
 function animateParticles(){ ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animateParticles); }
 initParticles(); animateParticles();
 
-/* ===== EMOJI EXPLOSIONS ===== */
-function spawnEmoji(){
+/* ===== EMOJI EXPLOSIONS ON CLICK ===== */
+willContainer.addEventListener('click', (e) => {
+    for(let i=0; i<8; i++) spawnEmoji(e.clientX, e.clientY);
+});
+
+function spawnEmoji(x, y){
     const e = document.createElement("div");
     e.className = "emoji";
     e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    e.style.left = `${Math.random()*100}vw`;
-    e.style.top = `${Math.random()*100}vh`;
-    e.style.fontSize = `${Math.random()*4+2}rem`;
+    e.style.left = `${x}px`;
+    e.style.top = `${y}px`;
+    e.style.fontSize = `${Math.random()*3 + 2}rem`;
     document.body.appendChild(e);
 
     const dx = (Math.random()-0.5)*200;
@@ -97,7 +95,7 @@ function spawnEmoji(){
         e.style.transform = `translate(${dx*0.01}px,${dy*0.01}px) scale(${scale}) rotate(${rotate}deg)`;
         opacity -= 0.02;
         scale += 0.03;
-        rotate += 20;
+        rotate += 10;
         e.style.opacity = opacity;
         if(opacity<=0){ clearInterval(anim); e.remove(); }
     },16);
